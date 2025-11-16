@@ -82,7 +82,6 @@ const ViewCode = () => {
     <>
       <title>View Code - CodeBank</title>
 
-      {/* Breadcrumb */}
       <nav className="mb-6" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2">
           <li className="inline-flex items-center">
@@ -122,10 +121,8 @@ const ViewCode = () => {
         </ol>
       </nav>
 
-      {/* Header */}
       <h2 className="text-2xl font-bold text-center mb-4"></h2>
 
-      {/* Browser Mockup */}
       <div className="mockup-browser border border-base-300 w-full rounded-lg">
         <div className="mockup-browser-toolbar mockup-browser-toolbar-none flex items-center justify-between px-4">
           {detectedLanguage && (
@@ -150,7 +147,6 @@ const ViewCode = () => {
           </button>
         </div>
 
-        {/* Code Block */}
         <div className="overflow-hidden">
           <pre className="overflow-x-auto hljs">
             <code ref={codeRef} />

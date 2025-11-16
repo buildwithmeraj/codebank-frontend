@@ -27,14 +27,14 @@ const Codes = () => {
 
   // Fetch codes for this category
   const fetchCodes = async () => {
-    console.log("Category ID:", id); // Add this to verify
-    console.log("Full URL:", `/codes/${id}`); // Add this
+    console.log("Category ID:", id);
+    console.log("Full URL:", `/codes/${id}`);
 
     try {
       const response = await axiosSecure.get(`/codes/${id}`);
       setCodes(response.data);
     } catch (error) {
-      console.error("Full error:", error.response || error); // Better error logging
+      console.error("Full error:", error.response || error);
       toast.error("Failed to fetch codes: " + error.message);
     } finally {
       setLoading(false);
@@ -45,7 +45,6 @@ const Codes = () => {
     fetchCodes();
   }, [id]);
 
-  // Handle Delete Flow
   const handleDelete = async (code) => {
     const result = await Swal.fire({
       title: "Code",
@@ -71,7 +70,6 @@ const Codes = () => {
     }
   };
 
-  // Handle Update Flow
   const handleEdit = (code) => setEditCode(code);
 
   const handleUpdate = async (e) => {
