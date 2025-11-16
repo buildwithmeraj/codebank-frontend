@@ -1,15 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { NavLink, useLocation, useNavigate } from "react-router";
-import toast from "react-hot-toast";
+import { useLocation, useNavigate, Link } from "react-router";
+import Swal from "sweetalert2";
 import Error from "../../components/utilities/Error";
 import Info from "../../components/utilities/Info";
-import { Eye, EyeOff, UserRoundPlus, LogIn } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
+import { ChevronRight } from "lucide-react";
 
 const Login = () => {
-  const { user, signInUsingEmail, signInUsingGoogle, setUser, firebaseErrors } =
-    useAuth();
+  const { user, signInUsingGoogle, setUser, firebaseErrors } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,50 +19,20 @@ const Login = () => {
   }
 
   const [error, setError] = useState(null);
-  const [showPass, setShowPass] = useState(false);
   const [loginMessage, setLoginMessage] = useState(state?.message || null);
-  const emailRef = useRef();
-
-  const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-  const passRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-
   if (state?.message && !loginMessage) {
     setLoginMessage(state?.message || null);
   }
-
-  const handleForm = (e) => {
-    e.preventDefault();
-    setError(null);
-
-    const email = e.target.email.value.trim();
-    const password = e.target.password.value.trim();
-
-    if (!emailRegex.test(email)) {
-      return setError("Please enter a valid email address");
-    }
-    if (!passRegex.test(password)) {
-      return setError(
-        "Password must include uppercase, lowercase letters, and be at least 6 characters."
-      );
-    }
-
-    signInUsingEmail(email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
-        toast.success("Login successful!");
-        navigate(state?.from || "/", { replace: true });
-      })
-      .catch((error) => {
-        const match = firebaseErrors.find((err) => err.code === error.code);
-        setError(match ? match.message : "Login failed. Please try again.");
-      });
-  };
 
   const handleGoogleSignIn = () => {
     signInUsingGoogle()
       .then((result) => {
         setUser(result.user);
-        toast.success("Login successful!");
+        Swal.fire({
+          title: "Login successfull!",
+          text: "You are logged in successfully!",
+          icon: "success",
+        });
         navigate(state?.from || "/", { replace: true });
       })
       .catch((error) => {
@@ -73,78 +42,53 @@ const Login = () => {
   };
 
   return (
-    <div className="hero min-h-[60vh]">
-      <form onSubmit={handleForm}>
+    <>
+      <title>Login - CodeBank</title>
+      <nav
+        className="flex x-2 md:px-4 lg:px-8 justify-center"
+        aria-label="Breadcrumb"
+      >
+        <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+          <li className="inline-flex items-center">
+            <Link
+              to="/"
+              className="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand"
+            >
+              Home
+            </Link>
+          </li>
+          <li aria-current="page">
+            <div className="flex items-center space-x-1.5">
+              <ChevronRight size={18} />
+              <span className="inline-flex items-center text-sm font-medium text-body-subtle">
+                Login
+              </span>
+            </div>
+          </li>
+        </ol>
+      </nav>
+      <div className="hero min-h-[60vh]">
         <div className="hero-content flex-col">
-          <div className="card bg-base-100 w-[320px] md:w-lg lg:w-xl shadow-2xl">
+          <div className="card bg-base-100 w-[340px] md:w-sm lg:w-md shadow-2xl">
             <div className="card-body">
               <h1>Login</h1>
 
               {loginMessage && <Info message={loginMessage} />}
               {error && <Error message={error} />}
 
-              <fieldset className="fieldset">
-                <label className="label font-medium" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="input w-full"
-                  placeholder="Enter your email"
-                  name="email"
-                  ref={emailRef}
-                  required
-                />
-
-                <label className="label font-medium mt-2" htmlFor="password">
-                  Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPass ? "text" : "password"}
-                    id="password"
-                    className="input w-full pr-10"
-                    placeholder="Enter your password"
-                    name="password"
-                    required
-                  />
-                  <span
-                    className="absolute right-2 top-2 cursor-pointer text-2xl text-gray-600"
-                    onClick={() => setShowPass(!showPass)}
-                  >
-                    {showPass ? <Eye /> : <EyeOff />}
-                  </span>
-                </div>
-
-                <button className="btn btn-primary mt-4 w-full" type="submit">
-                  <LogIn size={16} />
-                  Login
-                </button>
-
-                <div className="flex flex-col md:flex-row items-center justify-between gap-2 lg:mt-2">
-                  <button
-                    className="btn btn-outline btn-block lg:flex-1"
-                    type="button"
-                    onClick={handleGoogleSignIn}
-                  >
-                    <FcGoogle />
-                    Google Login
-                  </button>
-                  <NavLink
-                    to="/register"
-                    className="btn btn-success text-white flex btn-block lg:flex-1 items-center gap-2"
-                  >
-                    <UserRoundPlus size={16} />
-                    Register
-                  </NavLink>
-                </div>
-              </fieldset>
+              <button
+                className="btn btn-outline btn-block mt-4"
+                type="button"
+                onClick={handleGoogleSignIn}
+              >
+                <FcGoogle />
+                Google Login
+              </button>
             </div>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 
