@@ -167,9 +167,9 @@ const Codes = () => {
           </div>
         ) : (
           // Table
-          <div className="overflow-x-auto shadow-lg sm:rounded-lg bg-base-100 border border-base-300">
+          <div className="relative overflow-x-auto shadow-lg sm:rounded-lg bg-base-100 border border-base-300">
             <table className="w-full text-sm text-left text-base-content">
-              <thead className="text-xs uppercase bg-base-200 text-base-content/80">
+              <thead className="bg-base-300">
                 <tr>
                   <th className="px-6 py-3">
                     <Tags size={20} className="inline-block mr-2" />
@@ -243,7 +243,7 @@ const Codes = () => {
                   <label className="label font-medium"> Code</label>
                   <textarea
                     name="code"
-                    rows="4"
+                    rows="8"
                     className="textarea textarea-bordered w-full"
                     placeholder="Write your code here..."
                     defaultValue={editCode.code}

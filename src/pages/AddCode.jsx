@@ -140,7 +140,7 @@ const AddCode = () => {
             <label className="label font-medium"> Code</label>
             <textarea
               name="code"
-              rows="4"
+              rows="8"
               className="textarea textarea-bordered w-full"
               placeholder="Write your code here..."
             ></textarea>

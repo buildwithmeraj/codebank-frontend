@@ -88,9 +88,14 @@ const Profile = () => {
           </h5>
           <p className="text-sm ">{user?.email || "N/A"}</p>
           <p className="mt-2">
-            <span className="text-success font-bold">{totalCategories}</span>{" "}
+            <span className="text-success font-bold">
+              {totalCategories?.count || 0}
+            </span>{" "}
             Categories |{" "}
-            <span className="text-success font-bold">{totalCodes}</span> Codes
+            <span className="text-success font-bold">
+              {totalCodes?.count || 0}
+            </span>{" "}
+            Codes
           </p>
           <div className="mt-4">
             <Link

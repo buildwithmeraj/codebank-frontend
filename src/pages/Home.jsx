@@ -26,7 +26,7 @@ const Home = () => {
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">What can you do?</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-            <div className="bg-white p-6 rounded-2xl transition-all hover:scale-105 duration-300 shadow-sm hover:shadow-lg">
+            <div className="p-6 rounded-2xl transition-all hover:scale-105 duration-300 shadow-sm hover:shadow-lg bg-base-200">
               <div className="flex justify-center text-blue-500 mb-4">
                 <CodeXml size={60} />
               </div>
@@ -38,7 +38,7 @@ const Home = () => {
                 languages.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-2xl transition-all hover:scale-105 duration-300 shadow-sm hover:shadow-lg">
+            <div className="p-6 rounded-2xl transition-all hover:scale-105 duration-300 shadow-sm hover:shadow-lg bg-base-200">
               <div className="flex justify-center text-blue-500 mb-4">
                 <FileText size={60} />
               </div>
@@ -49,7 +49,7 @@ const Home = () => {
                 Organize your snippets into categories for easy access.
               </p>
             </div>
-            <div className="bg-white p-6 rounded-2xl transition-all hover:scale-105 duration-300 shadow-sm hover:shadow-lg">
+            <div className="p-6 rounded-2xl transition-all hover:scale-105 duration-300 shadow-sm hover:shadow-lg bg-base-200">
               <div className="flex justify-center text-blue-500 mb-4">
                 <Edit size={60} />
               </div>
