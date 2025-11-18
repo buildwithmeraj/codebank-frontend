@@ -160,7 +160,11 @@ npm run format
 
 ## 📸 Screenshots
 
-> Add your application screenshots here
+<img src="https://i.ibb.co.com/R4ZWkg6k/Screenshot-20251119-013245.png" height="auto" alt="Screenshot" />
+<img src="https://i.ibb.co.com/7TtY8Xv/Screenshot-20251119-013229.png" height="auto" alt="Screenshot" />
+<img src="https://i.ibb.co.com/6JZs38sV/Screenshot-20251119-013311.png" height="auto" alt="Screenshot" />
+<img src="https://i.ibb.co.com/HTP2LmHN/Screenshot-20251119-013331.png" height="auto" alt="Screenshot" />
+<img src="https://i.ibb.co.com/Cs43rWsQ/Screenshot-20251119-013352.png" height="auto" alt="Screenshot" />
 
 ## 🔧 Configuration
 
@@ -243,14 +247,6 @@ Contributions are welcome! Please follow these steps:
 ## 🐛 Known Issues
 
 - None at the moment
-
-## 📝 Todo
-
-- [ ] Add unit tests with Vitest
-- [ ] Implement snippet sharing functionality
-- [ ] Add code snippet versioning
-- [ ] Integrate AI-powered code suggestions
-- [ ] Add collaborative editing features
 
 ## 📄 License
 
