@@ -16,6 +16,7 @@ import {
   CheckCheck,
 } from "lucide-react";
 import Swal from "sweetalert2";
+import SearchComponent from "../components/Search";
 
 const Codes = () => {
   const { id } = useParams();
@@ -105,7 +106,7 @@ const Codes = () => {
   return (
     <>
       <nav
-        className="flex x-2 md:px-4 lg:px-8 justify-center"
+        className="flex x-2 md:px-4 lg:px-8 justify-center mb-4"
         aria-label="Breadcrumb"
       >
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -136,6 +137,7 @@ const Codes = () => {
           </li>
         </ol>
       </nav>
+      <SearchComponent />
       <div className="px-2 md:px-4 lg:px-8">
         <title>My Codes - CityFix</title>
 
@@ -167,7 +169,7 @@ const Codes = () => {
           </div>
         ) : (
           // Table
-          <div className="relative overflow-x-auto shadow-lg sm:rounded-lg bg-base-100 border border-base-300">
+          <div className="relative overflow-x-auto shadow-lg bg-base-100 border border-base-300 rounded-lg">
             <table className="w-full text-sm text-left text-base-content">
               <thead className="bg-base-300">
                 <tr>

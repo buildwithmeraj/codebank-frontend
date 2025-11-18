@@ -15,13 +15,13 @@ const Profile = () => {
   const [totalCodes, setTotalCodes] = useState(0);
 
   const fetchTotalCategories = () => {
-    axiosSecure.get(`http://localhost:3000/total-categories`).then((data) => {
+    axiosSecure.get(`/total-categories`).then((data) => {
       setTotalCategories(data.data);
     });
   };
 
   const fetchTotalCodes = () => {
-    axiosSecure.get(`http://localhost:3000/total-codes`).then((data) => {
+    axiosSecure.get(`/total-codes`).then((data) => {
       setTotalCodes(data.data);
     });
   };

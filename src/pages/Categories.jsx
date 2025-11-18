@@ -16,6 +16,7 @@ import {
   CheckCheck,
 } from "lucide-react";
 import Swal from "sweetalert2";
+import SearchComponent from "../components/Search";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -25,7 +26,7 @@ const Categories = () => {
   const axiosSecure = useAxiosSecure();
 
   const fetchCategories = () => {
-    axiosSecure.get(`http://localhost:3000/categories`).then((data) => {
+    axiosSecure.get(`/categories`).then((data) => {
       setCategories(data.data);
       setLoading(false);
     });
@@ -105,7 +106,7 @@ const Categories = () => {
     <>
       <title>My Categories - CodeBank</title>
       <nav
-        className="flex x-2 md:px-4 lg:px-8 justify-center"
+        className="flex x-2 md:px-4 lg:px-8 justify-center mb-4"
         aria-label="Breadcrumb"
       >
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -127,6 +128,7 @@ const Categories = () => {
           </li>
         </ol>
       </nav>
+      <SearchComponent />
       <div className="px-2 md:px-4 lg:px-8">
         <div className="flex items-center justify-between">
           <h2>
@@ -135,7 +137,7 @@ const Categories = () => {
           </h2>
           <Link to="/add-category" className="btn btn-success text-white">
             <Plus size={20} />
-            Add Category
+            Add<span className="hidden md:inline-block"> Category</span>
           </Link>
         </div>
         {categories.length === 0 ? (
@@ -154,7 +156,7 @@ const Categories = () => {
             </p>
           </div>
         ) : (
-          <div className="relative overflow-x-auto shadow-lg sm:rounded-lg bg-base-100 border border-base-300">
+          <div className="relative overflow-x-auto shadow-lg rounded-lg bg-base-100 border border-base-300">
             <table className="w-full text-sm text-left text-base-content">
               <thead className="bg-base-300">
                 <tr>
@@ -179,7 +181,11 @@ const Categories = () => {
                         to={`/codes/${category._id}`}
                         className="font-medium hover:underline flex items-center gap-2"
                       >
-                        <img src={category.image} alt="" className="w-6" />
+                        <img
+                          src={category.image}
+                          alt=""
+                          className="w-6 rounded-lg"
+                        />
                         {category.title}
                       </Link>
                     </td>

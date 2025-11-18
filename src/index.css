@@ -91,6 +91,11 @@ h1 {
   @apply rounded-lg;
 }
 
+.input,
+textarea {
+  @apply rounded-xl;
+}
+
 .hero-bg {
   background-image: url("/public/bg.svg");
   background-repeat: repeat;

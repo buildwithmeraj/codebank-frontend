@@ -63,7 +63,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="bg-gray-100 py-16 rounded-xl">
+      <section className="bg-base-100 py-16 rounded-xl">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">Getting Started</h2>
           <p className="text-lg mb-6">
