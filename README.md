@@ -1,4 +1,4 @@
-<h1 style="display: flex; align-items: center; gap: 8px;"><img src="./public/logo.png" alt="CodeBank Logo" width="32" /><span>CodeBank - Code Snippet Manager</span></h1>
+<h1 style="display: flex; align-items: center; gap: 8px;"><img src="./public/logo.png" alt="CodeBank Logo" width="32" /> <span>CodeBank - Code Snippet Manager</span></h1>
 
 CodeBank is a web app to create, organize, and manage code snippets.
 
