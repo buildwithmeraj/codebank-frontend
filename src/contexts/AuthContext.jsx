@@ -8,7 +8,6 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
-import { useContext } from "react";
 
 const AuthContext = createContext(null);
 
@@ -79,7 +78,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    signOut(auth);
+    return signOut(auth);
   };
 
   useEffect(() => {
@@ -103,9 +102,7 @@ export const AuthProvider = ({ children }) => {
     firebaseErrors,
     loading,
   };
-  return <AuthContext value={authData}>{children}</AuthContext>;
+  return <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>;
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export default AuthContext;

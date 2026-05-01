@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/useAuth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
@@ -9,7 +9,7 @@ const instance = axios.create({
 
 const useAxiosSecure = () => {
   const navigate = useNavigate();
-  const { user, signOutUser } = useAuth();
+  const { user, logOut } = useAuth();
 
   useEffect(() => {
     const requestInterceptor = instance.interceptors.request.use((config) => {
@@ -27,8 +27,7 @@ const useAxiosSecure = () => {
       (error) => {
         const status = error.response?.status;
         if (status === 401 || status === 403) {
-          console.log("Unauthorized - logging out user");
-          signOutUser().then(() => {
+          logOut().then(() => {
             navigate("/register");
           });
         }
@@ -40,7 +39,7 @@ const useAxiosSecure = () => {
       instance.interceptors.request.eject(requestInterceptor);
       instance.interceptors.response.eject(responseInterceptor);
     };
-  }, [user, signOutUser, navigate]);
+  }, [user, logOut, navigate]);
 
   return instance;
 };

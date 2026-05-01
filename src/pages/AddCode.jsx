@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useNavigate, useParams, Link } from "react-router";
@@ -11,15 +11,13 @@ const AddCode = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const { categoryId } = useParams();
-  const [codes, setCodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
-  const fetchCategory = async () => {
+  const fetchCategory = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axiosSecure.get(`/category/${categoryId}`);
-      setCodes(response.data);
+      await axiosSecure.get(`/category/${categoryId}`);
     } catch (error) {
       if (error.response) {
         if (error.response.status === 404) {
@@ -38,11 +36,11 @@ const AddCode = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [axiosSecure, categoryId, navigate]);
 
   useEffect(() => {
     fetchCategory();
-  }, []);
+  }, [fetchCategory]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,8 +68,7 @@ const AddCode = () => {
       });
       e.target.reset();
       navigate(`/codes/${categoryId}`);
-    } catch (error) {
-      console.error("Error adding code:", error);
+    } catch {
       setError("Failed to add code. Please try again.");
     }
   };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { Link, useParams } from "react-router";
 import toast from "react-hot-toast";
@@ -27,24 +27,20 @@ const Codes = () => {
   const axiosSecure = useAxiosSecure();
 
   // Fetch codes for this category
-  const fetchCodes = async () => {
-    console.log("Category ID:", id);
-    console.log("Full URL:", `/codes/${id}`);
-
+  const fetchCodes = useCallback(async () => {
     try {
       const response = await axiosSecure.get(`/codes/${id}`);
       setCodes(response.data);
     } catch (error) {
-      console.error("Full error:", error.response || error);
       toast.error("Failed to fetch codes: " + error.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [axiosSecure, id]);
 
   useEffect(() => {
     fetchCodes();
-  }, [id]);
+  }, [fetchCodes]);
 
   const handleDelete = async (code) => {
     const result = await Swal.fire({
@@ -139,7 +135,7 @@ const Codes = () => {
       </nav>
       <SearchComponent />
       <div className="px-2 md:px-4 lg:px-8">
-        <title>My Codes - CityFix</title>
+        <title>My Codes - CodeBank</title>
 
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-semibold">

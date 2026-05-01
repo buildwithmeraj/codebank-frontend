@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/useAuth";
 import { List, LogOut } from "lucide-react";
 import { HiUserCircle } from "react-icons/hi";
 import { ChevronRight } from "lucide-react";

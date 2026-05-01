@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Search, X, FolderOpen, FileCode, Loader2 } from "lucide-react";
 import { Link } from "react-router";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -14,21 +14,7 @@ const SearchComponent = () => {
   const [hasSearched, setHasSearched] = useState(false);
   const axiosSecure = useAxiosSecure();
 
-  useEffect(() => {
-    if (searchQuery.trim().length === 0) {
-      setSearchResults({ categories: [], codes: [] });
-      setHasSearched(false);
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      performSearch();
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
-
-  const performSearch = async () => {
+  const performSearch = useCallback(async () => {
     if (searchQuery.trim().length < 2) {
       return;
     }
@@ -58,13 +44,26 @@ const SearchComponent = () => {
         categories: filteredCategories,
         codes: filteredCodes,
       });
-    } catch (error) {
-      console.error("Search error:", error);
+    } catch {
       toast.error("Failed to search. Please try again.");
     } finally {
       setIsSearching(false);
     }
-  };
+  }, [axiosSecure, searchQuery]);
+
+  useEffect(() => {
+    if (searchQuery.trim().length === 0) {
+      setSearchResults({ categories: [], codes: [] });
+      setHasSearched(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      performSearch();
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, performSearch]);
 
   const clearSearch = () => {
     setSearchQuery("");

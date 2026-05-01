@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../assets/logo.png";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/useAuth";
 import { HiUserCircle } from "react-icons/hi2";
 import ThemeSwitcher from "../components/utilities/ThemeSwitcher";
 

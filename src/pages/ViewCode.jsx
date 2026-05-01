@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { Link, useNavigate, useParams } from "react-router";
@@ -17,32 +17,31 @@ const ViewCode = () => {
   const [detectedLanguage, setDetectedLanguage] = useState("");
   const codeRef = useRef(null);
 
-  useEffect(() => {
-    const fetchCode = async () => {
-      try {
-        const response = await axiosSecure.get(`/code/${id}`);
-        setCode(response.data);
-      } catch (error) {
-        if (error.response) {
-          if (error.response.status === 404) {
-            toast.error("Code not found.");
-          } else if (error.response.status === 403) {
-            toast.error("You are not authorized to view this code.");
-          } else {
-            toast.error(
-              "Failed to fetch the code: " + error.response.data.message
-            );
-          }
+  const fetchCode = useCallback(async () => {
+    try {
+      const response = await axiosSecure.get(`/code/${id}`);
+      setCode(response.data);
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 404) {
+          toast.error("Code not found.");
+        } else if (error.response.status === 403) {
+          toast.error("You are not authorized to view this code.");
         } else {
-          toast.error("An unexpected error occurred.");
+          toast.error("Failed to fetch the code: " + error.response.data.message);
         }
-        navigate(`/categories/`);
-      } finally {
-        setLoading(false);
+      } else {
+        toast.error("An unexpected error occurred.");
       }
-    };
+      navigate(`/categories/`);
+    } finally {
+      setLoading(false);
+    }
+  }, [axiosSecure, id, navigate]);
+
+  useEffect(() => {
     fetchCode();
-  }, []);
+  }, [fetchCode]);
 
   useEffect(() => {
     if (code.code && codeRef.current) {
@@ -71,8 +70,8 @@ const ViewCode = () => {
       setCopied(true);
       toast.success("Code copied to clipboard!");
       setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      toast.error("Failed to copy code.", error);
+    } catch {
+      toast.error("Failed to copy code.");
     }
   };
 

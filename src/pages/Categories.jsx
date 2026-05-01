@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { Link } from "react-router";
 import toast from "react-hot-toast";
@@ -9,7 +9,6 @@ import {
   ChevronRight,
   Tags,
   PencilLine,
-  Folder,
   Trash2,
   SquarePen,
   X,
@@ -25,16 +24,20 @@ const Categories = () => {
   const [updating, setUpdating] = useState(false);
   const axiosSecure = useAxiosSecure();
 
-  const fetchCategories = () => {
-    axiosSecure.get(`/categories`).then((data) => {
+  const fetchCategories = useCallback(async () => {
+    try {
+      const data = await axiosSecure.get(`/categories`);
       setCategories(data.data);
+    } catch {
+      toast.error("Failed to fetch categories.");
+    } finally {
       setLoading(false);
-    });
-  };
+    }
+  }, [axiosSecure]);
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+  }, [fetchCategories]);
 
   const handleDelete = async (category) => {
     // Use the passed-in `category` directly instead of `selectedCategory`
@@ -142,7 +145,7 @@ const Categories = () => {
         </div>
         {categories.length === 0 ? (
           <div className="flex flex-col items-center justify-center min-h-[50vh]">
-            <p className="flex flex-col items-center justify-center w-full max-w-md bg-base-100 border border-base-300 rounded-2xl shadow-md p-6 text-center">
+            <div className="flex flex-col items-center justify-center w-full max-w-md bg-base-100 border border-base-300 rounded-2xl shadow-md p-6 text-center">
               <TriangleAlert size={70} className="text-gray-500 text-center" />
               <p className="text-2xl text-base-content/70">
                 You don't have any categories.
@@ -150,10 +153,10 @@ const Categories = () => {
               <div className="mt-4">
                 <Link className="btn btn-success" to="/add-category">
                   <Plus />
-                  Add an Category
+                  Add a Category
                 </Link>
               </div>
-            </p>
+            </div>
           </div>
         ) : (
           <div className="relative overflow-x-auto shadow-lg rounded-lg bg-base-100 border border-base-300">
