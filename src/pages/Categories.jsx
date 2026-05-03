@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { Link } from "react-router";
 import toast from "react-hot-toast";
@@ -108,170 +108,172 @@ const Categories = () => {
   return (
     <>
       <title>My Categories - CodeBank</title>
-      <nav
-        className="flex x-2 md:px-4 lg:px-8 justify-center mb-4"
-        aria-label="Breadcrumb"
-      >
-        <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-          <li className="inline-flex items-center">
-            <Link
-              to="/"
-              className="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand"
-            >
-              Home
+      <div className="page-shell">
+        <nav className="page-breadcrumb" aria-label="Breadcrumb">
+          <ol className="breadcrumb-list">
+            <li className="inline-flex items-center">
+              <Link
+                to="/"
+                className="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand"
+              >
+                Home
+              </Link>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center space-x-1.5">
+                <ChevronRight size={18} />
+                <span className="inline-flex items-center text-sm font-medium text-body-subtle">
+                  Categories
+                </span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        <SearchComponent />
+        <div className="px-2">
+          <div className="flex items-center justify-between">
+            <h2>
+              My Categories
+              {categories.length === 0 ? "" : ` (${categories.length})`}
+            </h2>
+            <Link to="/add-category" className="btn btn-success text-white">
+              <Plus size={20} />
+              Add<span className="hidden md:inline-block"> Category</span>
             </Link>
-          </li>
-          <li aria-current="page">
-            <div className="flex items-center space-x-1.5">
-              <ChevronRight size={18} />
-              <span className="inline-flex items-center text-sm font-medium text-body-subtle">
-                Categories
-              </span>
-            </div>
-          </li>
-        </ol>
-      </nav>
-      <SearchComponent />
-      <div className="px-2 md:px-4 lg:px-8">
-        <div className="flex items-center justify-between">
-          <h2>
-            My Categories
-            {categories.length === 0 ? "" : ` (${categories.length})`}
-          </h2>
-          <Link to="/add-category" className="btn btn-success text-white">
-            <Plus size={20} />
-            Add<span className="hidden md:inline-block"> Category</span>
-          </Link>
-        </div>
-        {categories.length === 0 ? (
-          <div className="flex flex-col items-center justify-center min-h-[50vh]">
-            <div className="flex flex-col items-center justify-center w-full max-w-md bg-base-100 border border-base-300 rounded-2xl shadow-md p-6 text-center">
-              <TriangleAlert size={70} className="text-gray-500 text-center" />
-              <p className="text-2xl text-base-content/70">
-                You don't have any categories.
-              </p>
-              <div className="mt-4">
-                <Link className="btn btn-success" to="/add-category">
-                  <Plus />
-                  Add a Category
-                </Link>
+          </div>
+          {categories.length === 0 ? (
+            <div className="flex flex-col items-center justify-center min-h-[40vh]">
+              <div className="flex flex-col items-center justify-center w-full max-w-md bg-base-100 border border-base-300 rounded-2xl shadow-md p-6 text-center">
+                <TriangleAlert
+                  size={70}
+                  className="text-gray-500 text-center"
+                />
+                <p className="text-2xl text-base-content/70">
+                  You don't have any categories.
+                </p>
+                <div className="mt-4">
+                  <Link className="btn btn-success" to="/add-category">
+                    <Plus />
+                    Add a Category
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="relative overflow-x-auto shadow-lg rounded-lg bg-base-100 border border-base-300">
-            <table className="w-full text-sm text-left text-base-content">
-              <thead className="bg-base-300">
-                <tr>
-                  <th className="px-6 py-3">
-                    <Tags size={20} className="inline-block mr-2" />
-                    Title
-                  </th>
-                  <th className="px-6 py-3 text-right">
-                    <PencilLine size={18} className="inline-block mr-2" />
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {categories.map((category) => (
-                  <tr
-                    key={category._id}
-                    className="bg-base-100 border-b border-base-200 hover:bg-base-200/60 transition-colors"
-                  >
-                    <td className="px-6 py-4 font-medium">
-                      <Link
-                        to={`/codes/${category._id}`}
-                        className="font-medium hover:underline flex items-center gap-2"
-                      >
-                        <img
-                          src={category.image}
-                          alt=""
-                          className="w-6 rounded-lg"
-                        />
-                        {category.title}
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4 text-right flex justify-end gap-3">
-                      <button
-                        className="text-info flex items-center gap-1 btn btn-ghost btn-sm"
-                        onClick={() => handleEdit(category)}
-                      >
-                        <SquarePen size={18} />
-                        Update
-                      </button>
-                      <button
-                        className="text-error flex items-center gap-1 btn btn-ghost btn-sm"
-                        onClick={() => handleDelete(category)}
-                      >
-                        <Trash2 size={18} className="" />
-                        Delete
-                      </button>
-                    </td>
+          ) : (
+            <div className="relative overflow-x-auto shadow-lg rounded-lg bg-base-100 border border-base-300">
+              <table className="w-full text-sm text-left text-base-content">
+                <thead className="bg-base-300">
+                  <tr>
+                    <th className="px-6 py-3">
+                      <Tags size={20} className="inline-block mr-2" />
+                      Title
+                    </th>
+                    <th className="px-6 py-3 text-right">
+                      <PencilLine size={18} className="inline-block mr-2" />
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {editCategory && (
-          <div className="modal modal-open">
-            <div className="modal-box bg-base-100 border border-base-300 max-w-md max-h-[90vh] overflow-y-auto">
-              <h3 className="font-bold text-lg mb-4 text-info text-center">
-                Update Category
-              </h3>
-
-              <form onSubmit={handleUpdate} className="space-y-4">
-                <div>
-                  <label className="label font-medium">Category Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    defaultValue={editCategory.title}
-                    placeholder="Enter category title"
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="label font-medium">Image URL</label>
-                  <input
-                    type="url"
-                    name="image"
-                    defaultValue={editCategory.image}
-                    placeholder="https://imgbb.com/image.jpg"
-                    className="input input-bordered w-full"
-                  />
-                </div>
-
-                <div className="modal-action">
-                  <button
-                    type="button"
-                    onClick={() => setEditCategory(null)}
-                    className="btn btn-ghost"
-                    disabled={updating}
-                  >
-                    <X size={20} />
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className={`btn btn-primary ${updating ? "loading" : ""}`}
-                  >
-                    <CheckCheck size={20} />
-                    {updating ? "Updating..." : "Save Changes"}
-                  </button>
-                </div>
-              </form>
+                </thead>
+                <tbody>
+                  {categories.map((category) => (
+                    <tr
+                      key={category._id}
+                      className="bg-base-100 border-b border-base-200 hover:bg-base-200/60 transition-colors"
+                    >
+                      <td className="px-6 py-4 font-medium">
+                        <Link
+                          to={`/codes/${category._id}`}
+                          className="font-medium hover:underline flex items-center gap-2"
+                        >
+                          <img
+                            src={category.image}
+                            alt=""
+                            className="w-6 rounded-lg"
+                          />
+                          {category.title}
+                        </Link>
+                      </td>
+                      <td className="px-6 py-4 text-right flex justify-end gap-3">
+                        <button
+                          className="text-info flex items-center gap-1 btn btn-ghost btn-sm"
+                          onClick={() => handleEdit(category)}
+                        >
+                          <SquarePen size={18} />
+                          Update
+                        </button>
+                        <button
+                          className="text-error flex items-center gap-1 btn btn-ghost btn-sm"
+                          onClick={() => handleDelete(category)}
+                        >
+                          <Trash2 size={18} className="" />
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
+          )}
 
-            <div
-              className="modal-backdrop bg-black/50"
-              onClick={() => setEditCategory(null)}
-            />
-          </div>
-        )}
+          {editCategory && (
+            <div className="modal modal-open">
+              <div className="modal-box bg-base-100 border border-base-300 max-w-md max-h-[90vh] overflow-y-auto">
+                <h3 className="font-bold text-lg mb-4 text-info text-center">
+                  Update Category
+                </h3>
+
+                <form onSubmit={handleUpdate} className="space-y-4">
+                  <div>
+                    <label className="label font-medium">Category Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={editCategory.title}
+                      placeholder="Enter category title"
+                      className="input input-bordered w-full"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="label font-medium">Image URL</label>
+                    <input
+                      type="url"
+                      name="image"
+                      defaultValue={editCategory.image}
+                      placeholder="https://imgbb.com/image.jpg"
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+
+                  <div className="modal-action">
+                    <button
+                      type="button"
+                      onClick={() => setEditCategory(null)}
+                      className="btn btn-ghost"
+                      disabled={updating}
+                    >
+                      <X size={20} />
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className={`btn btn-primary ${updating ? "loading" : ""}`}
+                    >
+                      <CheckCheck size={20} />
+                      {updating ? "Updating..." : "Save Changes"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div
+                className="modal-backdrop bg-black/50"
+                onClick={() => setEditCategory(null)}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

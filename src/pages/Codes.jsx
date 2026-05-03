@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { Link, useParams } from "react-router";
 import toast from "react-hot-toast";
@@ -101,182 +101,181 @@ const Codes = () => {
 
   return (
     <>
-      <nav
-        className="flex x-2 md:px-4 lg:px-8 justify-center mb-4"
-        aria-label="Breadcrumb"
-      >
-        <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-          <li className="inline-flex items-center">
-            <Link
-              to="/"
-              className="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="inline-flex items-center">
-            <ChevronRight size={18} />
-            <Link
-              to="/categories"
-              className="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand"
-            >
-              Categories
-            </Link>
-          </li>
-          <li aria-current="page">
-            <div className="flex items-center space-x-1.5">
+      <div className="page-shell">
+        <nav className="page-breadcrumb" aria-label="Breadcrumb">
+          <ol className="breadcrumb-list">
+            <li className="inline-flex items-center">
+              <Link
+                to="/"
+                className="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand"
+              >
+                Home
+              </Link>
+            </li>
+            <li className="inline-flex items-center">
               <ChevronRight size={18} />
-              <span className="inline-flex items-center text-sm font-medium text-body-subtle">
-                Codes
-              </span>
-            </div>
-          </li>
-        </ol>
-      </nav>
-      <SearchComponent />
-      <div className="px-2 md:px-4 lg:px-8">
-        <title>My Codes - CodeBank</title>
+              <Link
+                to="/categories"
+                className="inline-flex items-center text-sm font-medium text-body hover:text-fg-brand"
+              >
+                Categories
+              </Link>
+            </li>
+            <li aria-current="page">
+              <div className="flex items-center space-x-1.5">
+                <ChevronRight size={18} />
+                <span className="inline-flex items-center text-sm font-medium text-body-subtle">
+                  Codes
+                </span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+        <SearchComponent />
+        <div className="px-2 md:px-4">
+          <title>My Codes - CodeBank</title>
 
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold">
-            My Codes
-            {codes.length > 0 && ` (${codes.length})`}
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold">
+              My Codes
+              {codes.length > 0 && ` (${codes.length})`}
+            </h2>
 
-          <Link to={`/add-code/${id}`} className="btn btn-success text-white">
-            <Plus size={20} />
-            Add Code
-          </Link>
-        </div>
+            <Link to={`/add-code/${id}`} className="btn btn-success text-white">
+              <Plus size={20} />
+              Add Code
+            </Link>
+          </div>
 
-        {codes.length === 0 ? (
-          <div className="flex flex-col items-center justify-center min-h-[50vh]">
-            <div className="bg-base-100 border border-base-300 rounded-2xl shadow-md p-6 text-center max-w-md">
-              <TriangleAlert size={70} className="text-gray-500 mx-auto" />
-              <p className="text-2xl text-base-content/70 mt-4">
-                You don't have any codes.
-              </p>
-              <div className="mt-4">
-                <Link className="btn btn-success" to={`/add-code/${id}`}>
-                  <Plus /> Add a Code
-                </Link>
+          {codes.length === 0 ? (
+            <div className="flex flex-col items-center justify-center min-h-[40vh]">
+              <div className="bg-base-100 border border-base-300 rounded-2xl shadow-md p-6 text-center max-w-md">
+                <TriangleAlert size={70} className="text-gray-500 mx-auto" />
+                <p className="text-2xl text-base-content/70 mt-4">
+                  You don't have any codes.
+                </p>
+                <div className="mt-4">
+                  <Link className="btn btn-success" to={`/add-code/${id}`}>
+                    <Plus /> Add a Code
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          // Table
-          <div className="relative overflow-x-auto shadow-lg bg-base-100 border border-base-300 rounded-lg">
-            <table className="w-full text-sm text-left text-base-content">
-              <thead className="bg-base-300">
-                <tr>
-                  <th className="px-6 py-3">
-                    <Tags size={20} className="inline-block mr-2" />
-                    Title
-                  </th>
-                  <th className="px-6 py-3 text-right">
-                    <PencilLine size={18} className="inline-block mr-2" />
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {codes.map((code) => (
-                  <tr
-                    key={code._id}
-                    className="border-b border-base-200 hover:bg-base-200/60 transition"
-                  >
-                    <td className="px-6 py-4 font-medium">
-                      <Link
-                        to={`/view-code/${code._id}`}
-                        className="font-medium hover:underline flex items-center gap-2"
-                      >
-                        <FileCode size={18} className="inline-block" />
-                        {code.title}
-                      </Link>
-                    </td>
-
-                    <td className="px-6 py-4 flex justify-end gap-3">
-                      <button
-                        className="text-info flex items-center gap-1 btn btn-ghost btn-sm"
-                        onClick={() => handleEdit(code)}
-                      >
-                        <SquarePen size={18} />
-                        Update
-                      </button>
-                      <button
-                        className="text-error flex items-center gap-1 btn btn-ghost btn-sm"
-                        onClick={() => handleDelete(code)}
-                      >
-                        <Trash2 size={18} className="" />
-                        Delete
-                      </button>
-                    </td>
+          ) : (
+            // Table
+            <div className="relative overflow-x-auto shadow-lg bg-base-100 border border-base-300 rounded-lg">
+              <table className="w-full text-sm text-left text-base-content">
+                <thead className="bg-base-300">
+                  <tr>
+                    <th className="px-6 py-3">
+                      <Tags size={20} className="inline-block mr-2" />
+                      Title
+                    </th>
+                    <th className="px-6 py-3 text-right">
+                      <PencilLine size={18} className="inline-block mr-2" />
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                </thead>
+                <tbody>
+                  {codes.map((code) => (
+                    <tr
+                      key={code._id}
+                      className="border-b border-base-200 hover:bg-base-200/60 transition"
+                    >
+                      <td className="px-6 py-4 font-medium">
+                        <Link
+                          to={`/view-code/${code._id}`}
+                          className="font-medium hover:underline flex items-center gap-2"
+                        >
+                          <FileCode size={18} className="inline-block" />
+                          {code.title}
+                        </Link>
+                      </td>
 
-        {editCode && (
-          <div className="modal modal-open">
-            <div className="modal-box max-w-xl max-h-[90vh] overflow-y-auto bg-base-100 border border-base-300">
-              <h3 className="font-bold text-lg text-info text-center mb-4">
-                Update Code
-              </h3>
-
-              <form onSubmit={handleUpdate} className="space-y-4">
-                <div>
-                  <label className="label font-medium">Code Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    defaultValue={editCode.title}
-                    className="input input-bordered w-full"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="label font-medium"> Code</label>
-                  <textarea
-                    name="code"
-                    rows="8"
-                    className="textarea textarea-bordered w-full"
-                    placeholder="Write your code here..."
-                    defaultValue={editCode.code}
-                  ></textarea>
-                </div>
-
-                <div className="modal-action">
-                  <button
-                    type="button"
-                    className="btn btn-ghost"
-                    onClick={() => setEditCode(null)}
-                    disabled={updating}
-                  >
-                    <X size={20} />
-                    Cancel
-                  </button>
-
-                  <button
-                    type="submit"
-                    className={`btn btn-primary ${updating ? "loading" : ""}`}
-                  >
-                    {" "}
-                    <CheckCheck size={20} />
-                    {updating ? "Updating..." : "Save Changes"}
-                  </button>
-                </div>
-              </form>
+                      <td className="px-6 py-4 flex justify-end gap-3">
+                        <button
+                          className="text-info flex items-center gap-1 btn btn-ghost btn-sm"
+                          onClick={() => handleEdit(code)}
+                        >
+                          <SquarePen size={18} />
+                          Update
+                        </button>
+                        <button
+                          className="text-error flex items-center gap-1 btn btn-ghost btn-sm"
+                          onClick={() => handleDelete(code)}
+                        >
+                          <Trash2 size={18} className="" />
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
+          )}
 
-            <div
-              className="modal-backdrop bg-black/50"
-              onClick={() => setEditCode(null)}
-            />
-          </div>
-        )}
+          {editCode && (
+            <div className="modal modal-open">
+              <div className="modal-box max-w-xl max-h-[90vh] overflow-y-auto bg-base-100 border border-base-300">
+                <h3 className="font-bold text-lg text-info text-center mb-4">
+                  Update Code
+                </h3>
+
+                <form onSubmit={handleUpdate} className="space-y-4">
+                  <div>
+                    <label className="label font-medium">Code Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={editCode.title}
+                      className="input input-bordered w-full"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="label font-medium"> Code</label>
+                    <textarea
+                      name="code"
+                      rows="8"
+                      className="textarea textarea-bordered w-full"
+                      placeholder="Write your code here..."
+                      defaultValue={editCode.code}
+                    ></textarea>
+                  </div>
+
+                  <div className="modal-action">
+                    <button
+                      type="button"
+                      className="btn btn-ghost"
+                      onClick={() => setEditCode(null)}
+                      disabled={updating}
+                    >
+                      <X size={20} />
+                      Cancel
+                    </button>
+
+                    <button
+                      type="submit"
+                      className={`btn btn-primary ${updating ? "loading" : ""}`}
+                    >
+                      {" "}
+                      <CheckCheck size={20} />
+                      {updating ? "Updating..." : "Save Changes"}
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div
+                className="modal-backdrop bg-black/50"
+                onClick={() => setEditCode(null)}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

@@ -1,14 +1,14 @@
-import React from "react";
 import Header from "../components/NavBar";
 import Footer from "../components/Footer";
 import { Link } from "react-router";
+import { HiMiniHome } from "react-icons/hi2";
 
 const ErrorPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <title>Error 404 - CityFix</title>
       <Header />
-      <main className="flex-1 px-[3%] py-[1%] flex items-center justify-center h-[70vh] flex-col gap-4 pt-4">
+      <main className="flex h-[70vh] flex-1 flex-col items-center justify-center gap-4 px-4 pt-4 md:px-8 xl:px-16">
         <div className="mockup-browser border-primary border max-w-xl rounded-lg">
           <div className="mockup-browser-toolbar">
             <div className="input">{window.location.href}</div>
@@ -21,6 +21,7 @@ const ErrorPage = () => {
               The Page you are looking for cannot be found on the server. But
               don't worry, you can always go back to the{" "}
               <Link to="/" className="font-semibold btn btn-primary mt-4">
+                <HiMiniHome />
                 Home Page
               </Link>
             </div>

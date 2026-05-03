@@ -31,13 +31,13 @@ const SearchComponent = () => {
       const query = searchQuery.toLowerCase();
 
       const filteredCategories = categoriesRes.data.filter((cat) =>
-        cat.title.toLowerCase().includes(query)
+        cat.title.toLowerCase().includes(query),
       );
 
       const filteredCodes = allCodesRes.data.filter(
         (code) =>
           code.title.toLowerCase().includes(query) ||
-          code.code.toLowerCase().includes(query)
+          code.code.toLowerCase().includes(query),
       );
 
       setSearchResults({
@@ -84,7 +84,7 @@ const SearchComponent = () => {
         </mark>
       ) : (
         part
-      )
+      ),
     );
   };
 
@@ -92,7 +92,7 @@ const SearchComponent = () => {
     searchResults.categories.length + searchResults.codes.length;
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto h-fit">
       <div className="relative">
         <Search
           size={20}
@@ -231,7 +231,7 @@ const SearchComponent = () => {
                         className="group block p-4 rounded-xl hover:bg-base-200 transition-all border border-base-300 hover:border-secondary/50 hover:shadow-md"
                       >
                         <div className="flex items-start gap-4">
-                          <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0">
                             <FileCode size={20} className="text-secondary" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -245,7 +245,7 @@ const SearchComponent = () => {
                               </pre>
                             </div>
                           </div>
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                             <svg
                               className="w-5 h-5 text-secondary"
                               fill="none"

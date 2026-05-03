@@ -18,11 +18,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav
-        className="navbar fixed top-0 left-0 z-50 w-full px-[4%] xl:px-[7%]
-        bg-base-300/70 backdrop-blur-lg border-b border-base-300 shadow-sm
-        transition-all duration-300"
-      >
+      <nav className="navbar fixed top-0 left-0 z-50 w-full px-[4%] xl:px-[7%]bg-base-300/70 backdrop-blur-lg shadow-sm transition-all duration-300">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

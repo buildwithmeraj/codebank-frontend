@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { Link, useNavigate, useParams } from "react-router";
@@ -80,9 +80,10 @@ const ViewCode = () => {
   return (
     <>
       <title>View Code - CodeBank</title>
+      <div className="page-shell">
 
-      <nav className="mb-6" aria-label="Breadcrumb">
-        <ol className="inline-flex items-center space-x-1 md:space-x-2">
+      <nav className="page-breadcrumb" aria-label="Breadcrumb">
+        <ol className="breadcrumb-list">
           <li className="inline-flex items-center">
             <Link
               to="/"
@@ -151,6 +152,7 @@ const ViewCode = () => {
             <code ref={codeRef} />
           </pre>
         </div>
+      </div>
       </div>
 
       <style>{`

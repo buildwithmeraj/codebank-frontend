@@ -79,6 +79,22 @@ h1 {
   @apply text-3xl font-bold text-center;
 }
 
+.page-shell {
+  @apply mx-auto w-full max-w-7xl space-y-6 md:space-y-8;
+}
+
+.page-section {
+  @apply rounded-xl bg-base-100 p-5 md:p-6;
+}
+
+.page-breadcrumb {
+  @apply flex justify-center;
+}
+
+.breadcrumb-list {
+  @apply inline-flex items-center gap-1 md:gap-2;
+}
+
 .modal-box {
   @apply rounded-lg;
 }
@@ -113,4 +129,8 @@ textarea {
     content: none;
     display: none;
   }
+}
+
+.heading-title {
+  color: #525cfa;
 }

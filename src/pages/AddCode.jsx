@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useNavigate, useParams, Link } from "react-router";
@@ -78,11 +78,9 @@ const AddCode = () => {
   return (
     <>
       <title>Add Code - CodeBank</title>
-      <nav
-        className="flex x-2 md:px-4 lg:px-8 justify-center"
-        aria-label="Breadcrumb"
-      >
-        <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+      <div className="page-shell">
+      <nav className="page-breadcrumb" aria-label="Breadcrumb">
+        <ol className="breadcrumb-list">
           <li className="inline-flex items-center">
             <Link
               to="/"
@@ -119,7 +117,7 @@ const AddCode = () => {
           </li>
         </ol>
       </nav>
-      <div className="max-w-2xl mx-auto p-6 bg-base-100 shadow-md rounded-md">
+      <div className="mx-auto w-full max-w-2xl rounded-md bg-base-100 p-6 shadow-md">
         <h1 className="text-2xl font-semibold">Add a New Code</h1>
         {error && <Error message={error} />}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -150,6 +148,7 @@ const AddCode = () => {
             Add Code
           </button>
         </form>
+      </div>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const instance = axios.create({
-  baseURL: "https://codebank-api.vercel.app",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 const useAxiosSecure = () => {
@@ -28,11 +28,11 @@ const useAxiosSecure = () => {
         const status = error.response?.status;
         if (status === 401 || status === 403) {
           logOut().then(() => {
-            navigate("/register");
+            navigate("/login");
           });
         }
         return Promise.reject(error);
-      }
+      },
     );
 
     return () => {
