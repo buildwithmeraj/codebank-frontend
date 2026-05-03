@@ -23,7 +23,9 @@ const Home = () => {
 
       <section className="py-2">
         <div className="container mx-auto text-center">
-          <h2 className="mb-5 text-4xl font-bold">What can you do?</h2>
+          <h2 className="mb-5 text-4xl font-bold heading-title">
+            What can you do?
+          </h2>
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
             <div className="p-6 rounded-2xl transition-all hover:scale-105 duration-300 shadow-sm hover:shadow-lg bg-base-200">
               <div className="flex justify-center text-blue-500 mb-4">
@@ -62,9 +64,11 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="rounded-xl bg-base-100 py-2">
-        <div className="container mx-auto text-center">
-          <h2 className="mb-4 text-4xl font-bold">Getting Started</h2>
+      <section className="rounded-xl bg-base-100 py-2 mt-8">
+        <div className="container mx-auto text-center p-8 bg-base-200 rounded-xl">
+          <h2 className="mb-4 text-4xl font-bold heading-title">
+            Getting Started
+          </h2>
           <p className="mb-5 text-lg">
             To get started, simply log in using your Google account and begin
             saving your code snippets. You can create categories to organize
@@ -79,8 +83,8 @@ const Home = () => {
       </section>
 
       <section className="rounded-xl bg-base-100 p-2">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="mb-6 text-center text-4xl font-bold">
+        <div className="mx-auto">
+          <h2 className="mb-6 text-center text-4xl font-bold heading-title">
             Why Developers Use CodeBank
           </h2>
           <div className="grid gap-4 md:grid-cols-3">
@@ -110,8 +114,8 @@ const Home = () => {
       </section>
 
       <section className="rounded-xl bg-base-100 p-2">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="mb-6 text-center text-4xl font-bold">
+        <div className="mx-auto">
+          <h2 className="mb-6 text-center text-4xl font-bold heading-title">
             Suggested Workflow
           </h2>
           <div className="grid gap-4 md:grid-cols-4">
@@ -149,7 +153,9 @@ const Home = () => {
 
       <section className="rounded-xl bg-base-200 p-5 md:p-7 mt-8">
         <div className="mx-auto max-w-5xl text-center">
-          <h2 className="mb-2 text-4xl font-bold">Ready to Build Faster?</h2>
+          <h2 className="mb-2 text-4xl font-bold heading-title">
+            Ready to Build Faster?
+          </h2>
           <p className="mb-5 text-lg">
             Start building your personal coding knowledge base today and make
             repeated work a thing of the past.
